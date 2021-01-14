@@ -11,7 +11,7 @@
 
 <h3>Technology : </h3>
 <ul>
-  <li>Firebase Realtime DataBase</li>
+  <li>MongoDB</li>
   <li>React JS</li>
 </ul>
 
