@@ -8,6 +8,7 @@ import delivery from '../../../Assests/icons/delivery.png';
 import contact from '../../../Assests/icons/contact.png';
 import offer from '../../../Assests/icons/offer.png';
 import cart from '../../../Assests/icons/cart.png';
+import recipe from '../../../Assests/icons/recipe.png';
 import convo from '../../../Assests/icons/convo.png';
 import icon from './menu.png';
 import { Link } from 'react-router-dom';
@@ -90,6 +91,12 @@ class toolbar extends Component {
                                             </div>
                                         </Col>
                                     </Row>
+                                </Col>
+                                <Col>
+                                    <div className="toolbar">
+                                        <img src={recipe} alt="Menu Opening Icon" />
+                                        <Link to="/recipe"><p>Recipe Order</p></Link>
+                                    </div>
                                 </Col>
                             </Row>
                         </Container>
