@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button} from "reactstrap";
 import './ActionButton.css'
+import {accepted, cancelled, delivering, received, rejected} from "../../../Utils/Constants";
 
 class ActionButton extends Component {
 
@@ -8,36 +9,27 @@ class ActionButton extends Component {
         let color;
         switch (this.props.label) {
             case 'cancel order':
-                color = 'white';
+                color = cancelled;
                 break
             case 'add':
                 color = 'white';
                 break
             case 'accept':
-                color = 'white';
+                color = accepted;
                 break
-            case 'Cancel':
-                color = 'white';
+            case 'received':
+                color = received;
                 break
-            case 'Cancel':
-                color = 'white';
+            case 'reject':
+                color = rejected;
                 break
-            case 'Cancel':
-                color = 'white';
-                break
-            case 'Cancel':
-                color = 'white';
-                break
-            case 'Cancel':
-                color = 'white';
-                break
-            case 'Cancel':
-                color = 'white';
+            case 'delivering':
+                color = delivering;
                 break
         }
 
         return (
-            <Button className='actionButtonTextStyle' color={color}
+            <Button className='actionButtonTextStyle' style={{backgroundColor: color, marginRight: this.props.label != 'add' ? 20 : 0}}
                     onClick={this.props.func}>{this.props.label}</Button>
         )
     }

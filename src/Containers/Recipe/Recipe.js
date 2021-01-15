@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import '../OrderOnline/OrderOnline.css';
 
 import axios from 'axios';
 import Toolbar from '../../Components/navigation/toolbar/toolbar';
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import Items from '../../Components/Order/Items/Items';
 import Form from '../../Components/Order/orderForm/orderForm';
 import Footer from '../../Components/navigation/footer/footer';
 import RecipeOrders from "../../Components/Recipe/Orders/RecipeOrders";
+
 class Recipe extends Component {
 
     state = {
@@ -34,26 +35,58 @@ class Recipe extends Component {
                 title: 'nasi Lemak',
                 status: '1',
                 price: null,
-                message : null,
+                message: null,
             }
         ]
+    }
+
+    componentDidMount () {
+        // axios({
+        //         method: 'POST',
+        //         url: 'http://localhost:3000/user/signup',
+        //         headers: {
+        //             "Content-Type": 'application/json'
+        //         },
+        //         data: {
+        //             email: "test6",
+        //             password: "test"
+        //         }
+        //     }
+            axios.post('http://localhost:3000/user/signup', {
+                    "email":"test6",
+                    "password":"test"
+                    // address: 'none',
+                },
+            {
+            headers: {
+                'Content-Type': "application / json",
+                'Server': 'Cowboy',
+                'Connection': 'keep-alive',
+                'X-Powered-By': 'Express',
+                'Access-Control-Allow-Origin': '*',
+            }
+            }
+        ).then((res) => {
+            console.log(res.data)
+        }).catch((e) => {
+            console.log(e)
+        })
     }
 
     placeOrder = (obj) => {
         var copy = {
             ...obj, food: this.props.data, time: new Date().toString(), user: {
-                geo:{lat:0,long:0},
-                more:window.navigator.userAgent
+                geo: {lat: 0, long: 0},
+                more: window.navigator.userAgent
             }
         };
-        navigator.geolocation.getCurrentPosition(data=>{
-            copy.user.geo.lat=data.coords.latitude;
-            copy.user.geo.long=data.coords.longitude
+        navigator.geolocation.getCurrentPosition(data => {
+            copy.user.geo.lat = data.coords.latitude;
+            copy.user.geo.long = data.coords.longitude
         });
         if (this.props.data.length > 0) {
-            axios.post("https://twobrother0927.firebaseio.com/.json", copy).then(()=>alert("Your Order is Placed!"));
-        }
-        else {
+            axios.post("https://twobrother0927.firebaseio.com/.json", copy).then(() => alert("Your Order is Placed!"));
+        } else {
             alert("Please select some items from Menu first");
         }
     }
@@ -63,15 +96,16 @@ class Recipe extends Component {
         return (
             <div className="OrderOnline">
                 <section className="Order">
-                    <Toolbar count={this.props.count} />
+                    <Toolbar count={this.props.count}/>
                     <p className="OrderHead">Recipe Order</p>
                 </section>
                 <section className="Orderitems">
                     <RecipeOrders data={this.state.tempList}/>
                 </section>
-                <Footer />
+                <Footer/>
             </div>
         );
     }
 }
+
 export default Recipe;
