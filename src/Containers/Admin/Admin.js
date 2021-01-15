@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
-import Toolbar from '../../Components/navigation/toolbar/toolbar';
-import { NavLink } from 'react-router-dom';
-import Items from '../../Components/Cart/Items/Items';
-import Button from '../../Components/buttons/grab-offer/grab-btn';
-import Footer from '../../Components/navigation/footer/footer';
+import {
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    Button,
+    Text
+} from 'reactstrap';
 
-export default function Admin () {
-
-    
-       return(
-           <div>
-
-           </div>
-       )
-    
+class Admin extends Component {
+    render() {
+        return (
+            <div>
+                <Navbar color="light">
+                    <NavbarBrand href="/admin">Admin Dashboard</NavbarBrand>
+                    <Button color="primary">Logout</Button>
+                </Navbar>
+            </div >
+        );
+    }
 }
 
+export default Admin;
