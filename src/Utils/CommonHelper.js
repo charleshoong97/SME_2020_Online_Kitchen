@@ -2,7 +2,7 @@ import {accepted, cancelled, delivering, received, rejected, responded, underRev
 
 
 export const statusColorCode = (code) => {
-    switch (code){
+    switch (parseInt(code)){
         case 1:
             return underReview;
         case 2:
@@ -21,7 +21,7 @@ export const statusColorCode = (code) => {
 }
 
 export const statusDisplayText = (code) => {
-    switch (code){
+    switch (parseInt(code)){
         case 1:
             return 'Under Review';
         case 2:

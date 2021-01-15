@@ -13,15 +13,29 @@ class Recipe extends Component {
     state = {
         tempList: [
             {
+                orderid: '1',
+                userid: '1',
                 title: 'nasi Lemak',
                 status: '1',
                 price: null,
+                recipe: 'https://reactstrap.github.io/components/modals/',
+                message: [
+                    [
+                        'C',
+                        'Hello'
+                    ],
+                    [
+                        'R',
+                        'May I help you'
+                    ]
+                ]
             },
-            // {
-            //     title: 'nasi Lemak',
-            //     status: '1',
-            //     price: null,
-            // }
+            {
+                title: 'nasi Lemak',
+                status: '1',
+                price: null,
+                message : null,
+            }
         ]
     }
 

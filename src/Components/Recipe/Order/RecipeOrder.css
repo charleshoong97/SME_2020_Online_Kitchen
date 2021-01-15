@@ -1,11 +1,63 @@
-.modalStyle {
-    width: 300px;
-    height: 300px;
-    margin-left: 300px;
+.modal-dialog {
+    max-width: 70vw;
 }
 
-.modal-backdrop {
-    background-color: green;
+.modal-content {
+    min-height: 500px;
+    height: fit-content;
+}
+
+.show {
+    opacity: 9.0 !important;
+}
+
+.modal {
+    width: 100vw;
+    height: 100vmin;
+    backdrop-filter: opacity(10%) !important;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.statusCircle {
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    border-width: 1px;
+    margin-right: 10px;
+}
+
+.titleInputStyle {
+    margin-left: 10px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-left-width: 0;
+}
+
+.priceInputStyle {
+    margin-left: 10px;
+    width: 137px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-left-width: 0;
+}
+
+.recipeInputStyle{
+    margin-top: 20px;
+    height: 100px;
+    max-height: 100px;
+    width: 100%;
+    padding: 10px;
+}
+
+.messageInputStyle {
+    margin-top: 5px;
+    height: 100px;
+    max-height: 100px;
+    width: 100%;
+    padding: 10px;
 }
 
 .orderContainer {
@@ -53,4 +105,21 @@
     margin-top: 50px;
     padding-left: 20px;
     text-align: left;
+}
+
+.titleLabelStyle {
+    font-size: 20px;
+    font-weight: bold;
+    width: 60px;
+}
+
+.messageLabelStyle {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.prefix {
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 10px;
 }
