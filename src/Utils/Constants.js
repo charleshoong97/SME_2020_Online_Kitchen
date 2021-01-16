@@ -1,4 +1,5 @@
-export const backend = 'http://localhost:3000'
+// export const backend = 'http://localhost:3000'
+export const backend = 'https://sme-backend.herokuapp.com'
 
 export const send = '#32c8d9'
 export const add = '#fcad74'
