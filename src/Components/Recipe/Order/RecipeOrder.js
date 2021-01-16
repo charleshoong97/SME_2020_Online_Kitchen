@@ -1,7 +1,6 @@
 import {statusColorCode, statusDisplayText} from "../../../Utils/CommonHelper";
 import React, {useState, Component} from 'react';
 import './RecipeOrder.css';
-import Modal from "reactstrap/es/Modal";
 import {Button, Form, Input, ModalBody, ModalHeader} from "reactstrap";
 import Message from "../Message/Message";
 import * as axios from "axios";
@@ -41,7 +40,12 @@ class RecipeOrder extends Component {
 
         return (
             <div>
-                <OrderDetails open={this.state.open} close={this.closeModal} order={this.props.order}/>
+                {
+                    this.state.open ?
+                        <OrderDetails open={this.state.open} close={this.closeModal} order={this.props.order}/> :
+                        null
+                }
+
                 <div className='orderAnimation' onClick={this.openModal}>
                     <div className='orderContainer'>
                         <div>

@@ -8,68 +8,46 @@ import Items from '../../Components/Order/Items/Items';
 import Form from '../../Components/Order/orderForm/orderForm';
 import Footer from '../../Components/navigation/footer/footer';
 import RecipeOrders from "../../Components/Recipe/Orders/RecipeOrders";
+import {backend} from "../../Utils/Constants";
+import {login} from "../../Redux/Action/User";
+import {connect} from "react-redux";
+import {loadOrder} from "../../Redux/Action/RecipeOrder";
+
+const mapDispatchToProps = {
+    login,
+    loadOrder
+};
+
+const mapStateToProps = (state) => {
+    let object = {
+        userid : '',
+    }
+    if (state.user != null) {
+        object.userid = state.user._id
+    }
+    return object
+}
 
 class Recipe extends Component {
 
-    state = {
-        tempList: [
-            {
-                orderid: '1',
-                userid: '1',
-                title: 'nasi Lemak',
-                status: '1',
-                price: null,
-                recipe: 'https://reactstrap.github.io/components/modals/',
-                message: [
-                    [
-                        'C',
-                        'Hello'
-                    ],
-                    [
-                        'R',
-                        'May I help you'
-                    ]
-                ]
-            },
-            {
-                title: 'nasi Lemak',
-                status: '1',
-                price: null,
-                message: null,
-            }
-        ]
-    }
-
-    componentDidMount () {
-        // axios({
-        //         method: 'POST',
-        //         url: 'http://localhost:3000/user/signup',
-        //         headers: {
-        //             "Content-Type": 'application/json'
-        //         },
-        //         data: {
-        //             email: "test6",
-        //             password: "test"
-        //         }
-        //     }
-            axios.post('http://localhost:3000/user/signup', {
-                    "email":"test6",
-                    "password":"test"
-                    // address: 'none',
-                },
-            {
-            headers: {
-                'Content-Type': "application / json",
-                'Server': 'Cowboy',
-                'Connection': 'keep-alive',
-                'X-Powered-By': 'Express',
-                'Access-Control-Allow-Origin': '*',
-            }
+    componentDidMount() {
+        // first fetch going to remove
+        fetch(backend + '/user/login?email=test&password=test', {
+                method: 'GET',
             }
         ).then((res) => {
-            console.log(res.data)
+            return res.json()
+        }).then((data) => {
+            this.props.login(data)
+            fetch(backend + '/order/get-recipe-order-by-userid?user_id=' + this.props.userid, {method: 'GET'}).then((res) => {
+                return res.json()
+            }).then((data)=> {
+                console.log(data)
+                this.props.loadOrder(data)
+            })
         }).catch((e) => {
             console.log(e)
+            // console.log(e.response.data)
         })
     }
 
@@ -100,7 +78,7 @@ class Recipe extends Component {
                     <p className="OrderHead">Recipe Order</p>
                 </section>
                 <section className="Orderitems">
-                    <RecipeOrders data={this.state.tempList}/>
+                    <RecipeOrders/>
                 </section>
                 <Footer/>
             </div>
@@ -108,4 +86,4 @@ class Recipe extends Component {
     }
 }
 
-export default Recipe;
+export default connect(mapStateToProps, mapDispatchToProps)(Recipe);

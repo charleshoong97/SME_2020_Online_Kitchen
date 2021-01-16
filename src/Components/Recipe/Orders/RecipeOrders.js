@@ -5,12 +5,38 @@ import {statusColorCode, statusDisplayText} from "../../../Utils/CommonHelper";
 import RecipeOrder from "../Order/RecipeOrder";
 import './RecipeOrders.css'
 import OrderDetails from "../OrderDetails/OrderDetails";
+import {connect} from "react-redux";
+
+const mapStateToProps = (state) => {
+    let object = {
+        orders: [],
+        userid: '',
+        email: '',
+    }
+    if (state.user != null) {
+        object.userid = state.user._id
+        object.email = state.user.email
+    }
+    if (state.orders != null && state.orders.length > 0) {
+        if (object.email != '') {
+            object.orders = state.orders.sort((a, b) => {
+                if (object.email != 'admin') {
+                    return (new Date(b.admin_updated_date) > new Date(a.admin_updated_date) ? 1 : -1)
+                } else {
+                    return (new Date(b.client_update_ddate) > new Date(a.client_update_ddate) ? 1 : -1)
+                }
+            })
+        } else {
+            object.orders = state.orders
+        }
+    }
+    return object
+}
 
 class RecipeOrders extends Component {
     state = {
         open: false,
         //to be remove
-        userid: '1',
         orderid: '1',
     }
 
@@ -26,7 +52,7 @@ class RecipeOrders extends Component {
     render() {
         let emptyDetails = {
             orderid: this.state.orderid,
-            userid: this.state.userid,
+            userid: this.props.userid,
             title: '',
             status: '0',
             price: null,
@@ -39,11 +65,16 @@ class RecipeOrders extends Component {
                 <Button className='addRecipeButtonStyle align-self-end ItemsHead'
                         onClick={this.openModal}>Order Now</Button>
                 <Container>
-                    {this.props.data.map(element =>
+                    {this.props.orders.map(element =>
                         <RecipeOrder order={element}/>
                     )}
                 </Container>
-                <OrderDetails open={this.state.open} close={this.closeModal} order={emptyDetails}/>
+                {
+                    this.state.open ?
+                        <OrderDetails open={this.state.open} close={this.closeModal} order={emptyDetails}/>
+                        : null
+                }
+
             </div>
         );
     }
@@ -51,4 +82,4 @@ class RecipeOrders extends Component {
 
 }
 
-export default RecipeOrders;
+export default connect(mapStateToProps)(RecipeOrders);
