@@ -22,17 +22,11 @@ class Admin extends Component {
                             <strong>Admin Dashboard</strong>
                         </h4>
                     </NavbarBrand>
+                    <div expand="md">
+                        <Button color="primary">Reset Password</Button>
+                        <Button color="primary">Logout</Button>
+                    </div>
 
-                    <Nav>
-                        <NavItem>
-                            <NavLink href="/admin/order">Recipe Order</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="/admin/password">Reset Password</NavLink>
-                        </NavItem>
-                    </Nav>
-
-                    <Button color="primary">Logout</Button>
                 </Navbar>
             </div >
         );
