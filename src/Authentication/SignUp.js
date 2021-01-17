@@ -39,7 +39,7 @@ class SignUp extends Component {
   render() {
     return (
       <div>
-        <Modal isOpen={this.props.open} toggle={this.toggle}>
+        <Modal isOpen={this.props.open}>
           <ModalHeader>Sign Up</ModalHeader>
           <ModalBody>
             <Label for="exampleEmail">Email</Label>
@@ -56,7 +56,14 @@ class SignUp extends Component {
             <Input type="email" name="address" placeholder="address" />
           </ModalBody>
           <ModalFooter>
-            <Button color="secondary">Cancel</Button>
+            <Button
+              color="secondary"
+              onClick={() => {
+                this.props.onToggle()
+              }}
+            >
+              Cancel
+            </Button>
           </ModalFooter>
         </Modal>
       </div>

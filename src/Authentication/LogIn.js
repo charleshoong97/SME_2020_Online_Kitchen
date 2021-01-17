@@ -38,20 +38,25 @@ class LogIn extends Component {
 
   render() {
     return (
-      <div>
-        <Modal centered isOpen={this.props.open} className="modal_css">
-          <ModalHeader>Log In</ModalHeader>
-          <ModalBody>
-            <Label for="exampleEmail">Email</Label>
-            <Input type="email" name="email" placeholder="abc@gmail.com" />
-            <Label for="examplePassword">Password</Label>
-            <Input type="password" name="password" placeholder="password" />
-          </ModalBody>
-          <ModalFooter>
-            <Button color="secondary">Cancel</Button>
-          </ModalFooter>
-        </Modal>
-      </div>
+      <Modal centered isOpen={this.props.open} className="modal_css">
+        <ModalHeader>Log In</ModalHeader>
+        <ModalBody>
+          <Label for="exampleEmail">Email</Label>
+          <Input type="email" name="email" placeholder="abc@gmail.com" />
+          <Label for="examplePassword">Password</Label>
+          <Input type="password" name="password" placeholder="password" />
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            color="secondary"
+            onClick={() => {
+              this.props.onToggle()
+            }}
+          >
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
     )
   }
 }

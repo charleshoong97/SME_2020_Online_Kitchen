@@ -15,15 +15,15 @@ class NavBar extends Component {
     }
   }
 
-  openLogin = () => {
+  toggleLogin = () => {
     this.setState({
-      login: true,
+      login: !this.state.login,
     })
   }
 
-  openSignup = () => {
+  toggleSignup = () => {
     this.setState({
-      signup: true,
+      signup: !this.state.signup,
     })
   }
 
@@ -32,16 +32,16 @@ class NavBar extends Component {
       <Navbar color="light" light expand="md">
         <NavbarBrand href="/">Two Brothers</NavbarBrand>
         <div className="AuthButton_Conatiner">
-          <Button outline className="Auth_Button" onClick={this.openLogin}>
+          <Button outline className="Auth_Button" onClick={this.toggleLogin}>
             Log In
           </Button>
-          <Button outline className="Auth_Button" onClick={this.openSignup}>
+          <Button outline className="Auth_Button" onClick={this.toggleSignup}>
             Sign Up
           </Button>
         </div>
 
-        <LogIn open={this.state.login} />
-        <SignUp open={this.state.signup} />
+        <LogIn open={this.state.login} onToggle={this.toggleLogin} />
+        <SignUp open={this.state.signup} onToggle={this.toggleSignup} />
       </Navbar>
     )
   }
