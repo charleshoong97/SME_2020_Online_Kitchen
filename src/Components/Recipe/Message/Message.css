@@ -1,0 +1,15 @@
+.characterStyle {
+    font-weight: 700;
+}
+
+.messageStyle {
+    height: auto;
+    max-width: 40%;
+    background-color: #7cbbc2;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    padding: 0 10px;
+    color: white;
+    word-wrap: break-word;
+}
