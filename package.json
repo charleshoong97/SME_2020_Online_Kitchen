@@ -6,7 +6,7 @@
     "@reduxjs/toolkit": "^1.5.0",
     "axios": "^0.18.1",
     "bootstrap": "^4.5.2",
-    "formik": "^2.2.6",
+    "formik": "^1.5.8",
     "google-map-react": "^1.0.9",
     "google-maps-react": "^2.0.2",
     "react": "^16.5.2",
