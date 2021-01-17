@@ -76,11 +76,6 @@ class toolbar extends Component {
                                         <Link to="#footer"><p>Contact</p></Link>
                                     </div>
                                 </Col>
-                                <Col>
-                                    <div className="toolbar">
-                                        <Link to="/admin"><p>Admin</p></Link>
-                                    </div>
-                                </Col>
                                 <Col xs="4">
                                     <Row>
                                         <Col xs="8">
