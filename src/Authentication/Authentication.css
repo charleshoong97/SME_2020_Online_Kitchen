@@ -1,17 +1,12 @@
-.modal_css {
-  width: 897px;
-  height: 802px;
-  margin-left: 500px;
+.modal {
+  width: 100vw;
+  height: 100vmin;
 }
-/* 
-.modal_css {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) !important;
-} */
-/* 
-.modal_css {
-  display: flex !important;
-  align-items: center;
-} */
+
+.show {
+  opacity: 9 !important;
+}
+
+.backdrop {
+  background-color: white;
+}
