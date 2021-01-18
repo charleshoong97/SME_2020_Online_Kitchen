@@ -61,7 +61,7 @@ class LogIn extends Component {
 
   render() {
     return (
-      <Modal centered isOpen={this.props.open} className="modal_css">
+      <Modal centered={true} isOpen={this.props.open} className="modal_css">
         <ModalHeader
           toggle={() => {
             this.props.onToggle()
