@@ -19,6 +19,8 @@ jobs:
           heroku_app_name: "testsme2020"
           heroku_email: "charleshoong97@gmail.com"
           branch: "master"
-      - run: npm ci
-      - run: npm run build --if-present
+      - name: Run CI
+        run: npm ci
+      - name : Run Build
+        run: npm run build --if-present
           
