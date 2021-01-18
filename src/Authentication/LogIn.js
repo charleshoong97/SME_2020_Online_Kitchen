@@ -9,10 +9,19 @@ import {
   FormGroup,
   Label,
   Input,
+  Alert,
+  Col,
+  Row,
 } from 'reactstrap'
 import './Authentication.css'
+import { login } from '../Redux/Action/User'
 import { setUserSession } from './SessionAccess'
 import axios from 'axios'
+import { connect } from 'react-redux'
+
+const mapDispatchToProps = {
+  login,
+}
 
 class LogIn extends Component {
   constructor(props) {
@@ -20,7 +29,15 @@ class LogIn extends Component {
     this.state = {
       email: '',
       password: '',
+      openAlert: false,
+      alertMessage: '',
     }
+  }
+
+  toggleAlert = () => {
+    this.setState({
+      openAlert: !this.state.openAlert,
+    })
   }
 
   validateEmail(email) {
@@ -46,12 +63,17 @@ class LogIn extends Component {
       )
       .then((response) => {
         const userData = response.data
+        //console.log(userData)
         if (userData != null) {
-          //suceesss
-          //add redux here with userData  (user object)
-          alert('login success')
+          this.props.login(userData)
+          this.props.onToggle()
+          //alert('login success')
         } else {
-          alert('Wrong email or password')
+          this.setState({
+            openAlert: true,
+            alertMessage: 'Wrong email or password',
+          })
+          //alert('Wrong email or password')
         }
       })
       .catch((error) => {
@@ -61,7 +83,7 @@ class LogIn extends Component {
 
   render() {
     return (
-      <Modal centered={true} isOpen={this.props.open} className="modal_css">
+      <Modal centered={true} isOpen={this.props.open} backdrop="static">
         <ModalHeader
           toggle={() => {
             this.props.onToggle()
@@ -70,41 +92,77 @@ class LogIn extends Component {
           Log In
         </ModalHeader>
         <ModalBody>
-          <Label for="exampleEmail">Email</Label>
-          <Input
-            type="email"
-            name="email"
-            placeholder="abc@gmail.com"
-            onChange={(e) => {
-              this.setState({
-                email: e.target.value,
-              })
-            }}
-          />
-          <Label for="examplePassword">Password</Label>
-          <Input
-            type="password"
-            name="password"
-            placeholder="password"
-            onChange={(e) => {
-              this.setState({
-                password: e.target.value,
-              })
-            }}
-          />
+          <Form>
+            <div style={{ paddingBottom: 15 }}>
+              <Label for="exampleEmail">Email</Label>
+              <Input
+                type="email"
+                name="email"
+                placeholder="e.g.,abc@gmail.com"
+                onChange={(e) => {
+                  this.setState({
+                    email: e.target.value,
+                  })
+                }}
+              />
+            </div>
+            <div style={{ paddingBottom: 15 }}>
+              <Label for="examplePassword">Password</Label>
+              <Input
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={(e) => {
+                  this.setState({
+                    password: e.target.value,
+                  })
+                }}
+              />
+            </div>
+            <Alert
+              color="danger"
+              isOpen={this.state.openAlert}
+              toggle={this.toggleAlert}
+            >
+              {this.state.alertMessage}
+            </Alert>
+          </Form>
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter style={{ alignSelf: 'center' }}>
           <Button
-            color="primary"
+            color="success"
+            style={{ width: 450 }}
             onClick={() => {
-              if (!this.state.email || !this.state.password) {
-                alert('Please fill up email and password')
-              } else if (!this.validateEmail(this.state.email)) {
-                alert('Invalid Email format')
-              } else if (!this.isPasswordValid()) {
-                alert('Password must be more than 6 character')
+              if (this.state.email != 'admin') {
+                if (!this.state.email || !this.state.password) {
+                  this.setState({
+                    openAlert: true,
+                    alertMessage: 'Please fill up email and password.',
+                  })
+                  // alert('Please fill up email and password')
+                } else if (!this.validateEmail(this.state.email)) {
+                  this.setState({
+                    openAlert: true,
+                    alertMessage: 'Invalid Email format.',
+                  })
+                  //alert('Invalid Email format')
+                } else if (!this.isPasswordValid()) {
+                  this.setState({
+                    openAlert: true,
+                    alertMessage: 'Password must be more than 6 characters.',
+                  })
+                  //alert('Password must be more than 6 characters')
+                } else {
+                  this.submit()
+                }
               } else {
-                this.submit()
+                if (this.state.password == 'admin') this.submit()
+                else {
+                  this.setState({
+                    openAlert: true,
+                    alertMessage: 'Incorrect Password.',
+                  })
+                }
               }
             }}
           >
@@ -116,4 +174,7 @@ class LogIn extends Component {
   }
 }
 
-export default LogIn
+export default connect(
+  null,
+  mapDispatchToProps
+)(LogIn)

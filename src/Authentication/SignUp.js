@@ -9,6 +9,9 @@ import {
   FormGroup,
   Label,
   Input,
+  Alert,
+  Row,
+  Col,
 } from 'reactstrap'
 import './Authentication.css'
 import axios from 'axios'
@@ -23,8 +26,24 @@ class SignUp extends Component {
       password: '',
       retypepassword: '',
       address: '',
+      openAlert: false,
+      alertMessage: '',
+      openSuccessAlert: false,
     }
   }
+
+  toggleAlert = () => {
+    this.setState({
+      openAlert: !this.state.openAlert,
+    })
+  }
+
+  toggleSuccessAlert = () => {
+    this.setState({
+      openSuccessAlert: !this.state.openSuccessAlert,
+    })
+  }
+
   validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     return re.test(String(email).toLowerCase())
@@ -50,18 +69,28 @@ class SignUp extends Component {
         if (response.data._id) {
           //suceess
           //add redux with response.data   (user object)
-          alert('account created successfully')
+          this.setState({
+            openSuccessAlert: true,
+          })
+          this.props.onToggle()
+          this.props.openLogin(true)
+          //alert('Account created successfully.')
         }
       })
       .catch((error) => {
-        alert(JSON.stringify(error.response.data))
+        this.setState({
+          openAlert: true,
+          alertMessage: error.response.data,
+        })
+
+        //alert(JSON.stringify(error.response.data))
       })
   }
 
   render() {
     return (
       <div>
-        <Modal centered={true} isOpen={this.props.open} className="modal_css">
+        <Modal centered={true} isOpen={this.props.open} backdrop="static">
           <ModalHeader
             toggle={() => {
               this.props.onToggle()
@@ -70,54 +99,86 @@ class SignUp extends Component {
             Sign Up
           </ModalHeader>
           <ModalBody>
-            <Label for="exampleEmail">Email</Label>
-            <Input
-              type="email"
-              name="email"
-              placeholder="abc@gmail.com"
-              onChange={(e) => {
-                this.setState({
-                  email: e.target.value,
-                })
-              }}
-            />
-            <Label for="examplePassword">Password</Label>
-            <Input
-              type="password"
-              name="password"
-              placeholder="password"
-              onChange={(e) => {
-                this.setState({
-                  password: e.target.value,
-                })
-              }}
-            />
-            <Label for="examplePassword">Retype Password</Label>
-            <Input
-              type="password"
-              name="retypepassword"
-              placeholder="retype password"
-              onChange={(e) => {
-                this.setState({
-                  retypepassword: e.target.value,
-                })
-              }}
-            />
-            <Label for="exampleEmail">Address</Label>
-            <Input
-              type="email"
-              name="address"
-              placeholder="address"
-              onChange={(e) => {
-                this.setState({
-                  address: e.target.value,
-                })
-              }}
-            />
+            <Form>
+              <div style={{ paddingBottom: 15 }}>
+                <Label for="exampleEmail">Email</Label>
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="e.g.,abc@gmail.com"
+                  onChange={(e) => {
+                    this.setState({
+                      email: e.target.value,
+                    })
+                  }}
+                />
+              </div>
+
+              <Row>
+                <Col>
+                  <div style={{ paddingBottom: 15 }}>
+                    <Label for="examplePassword">Password</Label>
+                    <Input
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      onChange={(e) => {
+                        this.setState({
+                          password: e.target.value,
+                        })
+                      }}
+                    />
+                  </div>
+                </Col>
+                <Col>
+                  <div style={{ paddingBottom: 15 }}>
+                    <Label for="examplePassword">Retype Password</Label>
+                    <Input
+                      type="password"
+                      name="retypepassword"
+                      placeholder="Retype Password"
+                      onChange={(e) => {
+                        this.setState({
+                          retypepassword: e.target.value,
+                        })
+                      }}
+                    />
+                  </div>
+                </Col>
+              </Row>
+              <div style={{ paddingBottom: 15 }}>
+                <Label for="exampleEmail">Address</Label>
+                <Input
+                  type="textarea"
+                  name="address"
+                  placeholder="Address"
+                  onChange={(e) => {
+                    this.setState({
+                      address: e.target.value,
+                    })
+                  }}
+                />
+              </div>
+              <Alert
+                color="danger"
+                isOpen={this.state.openAlert}
+                toggle={this.toggleAlert}
+              >
+                {this.state.alertMessage}
+              </Alert>
+              <Alert
+                color="success"
+                isOpen={this.state.openSuccessAlert}
+                toggle={this.toggleSuccessAlert}
+              >
+                Sign up successfully.
+              </Alert>
+            </Form>
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter style={{ alignSelf: 'center' }}>
             <Button
-              color="success"
+              color="primary"
+              style={{ width: 450 }}
               onClick={() => {
                 if (
                   !this.state.email ||
@@ -125,19 +186,35 @@ class SignUp extends Component {
                   !this.state.retypepassword ||
                   !this.state.address
                 ) {
-                  alert('please fill up all field')
+                  this.setState({
+                    openAlert: true,
+                    alertMessage: 'Please fill up all the fields.',
+                  })
+                  //alert('please fill up all field')
                 } else if (!this.validateEmail(this.state.email)) {
-                  alert('Invalid email format')
+                  this.setState({
+                    openAlert: true,
+                    alertMessage: 'Invalid email format.',
+                  })
+                  //alert('Invalid email format')
                 } else if (!this.isPasswordValid()) {
-                  alert('Password must be greater than 6 character')
+                  this.setState({
+                    openAlert: true,
+                    alertMessage: 'Password must be greater than 6 characters.',
+                  })
+                  //alert('Password must be greater than 6 characters')
                 } else if (this.state.password != this.state.retypepassword) {
-                  alert('Password do not match')
+                  this.setState({
+                    openAlert: true,
+                    alertMessage: 'Password do not match.',
+                  })
+                  //alert('Password do not match')
                 } else {
                   this.submit()
                 }
               }}
             >
-              Sign up
+              Sign Up
             </Button>
           </ModalFooter>
         </Modal>

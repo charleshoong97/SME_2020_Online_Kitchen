@@ -4,6 +4,14 @@ import { Navbar, NavbarBrand, Button } from 'reactstrap'
 import LogIn from '../../Authentication/LogIn'
 import SignUp from '../../Authentication/SignUp'
 import './NavBar.css'
+import { connect } from 'react-redux'
+import { clearRedux } from '../../Redux/Action/User'
+
+const mapDispatchToProps = { clearRedux }
+
+const mapStateToProps = (state) => {
+  return { user: state.user }
+}
 
 class NavBar extends Component {
   constructor(props) {
@@ -13,6 +21,12 @@ class NavBar extends Component {
       login: false,
       signup: false,
     }
+  }
+
+  openLogin = () => {
+    this.setState({
+      login: true,
+    })
   }
 
   toggleLogin = () => {
@@ -37,24 +51,45 @@ class NavBar extends Component {
     })
   }
 
+  signout = () => {
+    this.props.clearRedux()
+  }
+
   render() {
+    console.log(this.props.user)
     return (
       <Navbar color="light" light expand="md">
         <NavbarBrand href="/">Two Brothers</NavbarBrand>
-        <div className="AuthButton_Conatiner">
-          <Button outline className="Auth_Button" onClick={this.toggleLogin}>
-            Log In
-          </Button>
-          <Button outline className="Auth_Button" onClick={this.toggleSignup}>
-            Sign Up
-          </Button>
-        </div>
+
+        {this.props.user._id == undefined ? (
+          <div className="AuthButton_Conatiner">
+            <Button outline className="Auth_Button" onClick={this.toggleLogin}>
+              Log In
+            </Button>
+            <Button outline className="Auth_Button" onClick={this.toggleSignup}>
+              Sign Up
+            </Button>
+          </div>
+        ) : (
+          <div className="AuthButton_Conatiner">
+            <Button outline className="Auth_Button" onClick={this.signout}>
+              Sign Out
+            </Button>
+          </div>
+        )}
 
         <LogIn open={this.state.login} onToggle={this.toggleLogin} />
-        <SignUp open={this.state.signup} onToggle={this.toggleSignup} />
+        <SignUp
+          open={this.state.signup}
+          onToggle={this.toggleSignup}
+          openLogin={(login) => this.setState({ login: login })}
+        />
       </Navbar>
     )
   }
 }
 
-export default NavBar
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NavBar)
