@@ -16,13 +16,23 @@ class NavBar extends Component {
   }
 
   toggleLogin = () => {
+    let closeSignUp = false
+    if (!this.state.login === true) {
+      closeSignUp = true
+    }
     this.setState({
       login: !this.state.login,
+      signup: closeSignUp ? false : this.state.signup,
     })
   }
 
   toggleSignup = () => {
+    let closeLogin = false
+    if (!this.state.signup === true) {
+      closeLogin = true
+    }
     this.setState({
+      login: closeLogin ? false : this.state.login,
       signup: !this.state.signup,
     })
   }
