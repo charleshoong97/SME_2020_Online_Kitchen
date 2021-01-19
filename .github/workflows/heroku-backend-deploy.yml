@@ -6,7 +6,7 @@ name: Backend Deployment
 on:
   push:
     paths: 
-      - '.server/**'
+      - 'server/**'
     branches:
       - subfolder
         
