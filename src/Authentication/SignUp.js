@@ -22,9 +22,11 @@ class SignUp extends Component {
     super(props)
 
     this.state = {
+      name: '',
       email: '',
       password: '',
       retypepassword: '',
+      phonenumber: '',
       address: '',
       openAlert: false,
       alertMessage: '',
@@ -49,6 +51,12 @@ class SignUp extends Component {
     return re.test(String(email).toLowerCase())
   }
 
+  validatePhoneNumber(phonenumber) {
+    var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+
+    return re.test(phonenumber)
+  }
+
   isPasswordValid() {
     let isValid = false
     if (this.state.password.length >= 6) {
@@ -59,8 +67,10 @@ class SignUp extends Component {
 
   submit() {
     const body = {
+      name: this.state.name,
       email: this.state.email,
       password: this.state.password,
+      phonenumber: this.state.phonenumber,
       address: this.state.address,
     }
     axios
@@ -100,6 +110,19 @@ class SignUp extends Component {
           </ModalHeader>
           <ModalBody>
             <Form>
+              <div style={{ paddingBottom: 15 }}>
+                <Label for="exampleEmail">Name</Label>
+                <Input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  onChange={(e) => {
+                    this.setState({
+                      name: e.target.value,
+                    })
+                  }}
+                />
+              </div>
               <div style={{ paddingBottom: 15 }}>
                 <Label for="exampleEmail">Email</Label>
                 <Input
@@ -147,6 +170,19 @@ class SignUp extends Component {
                 </Col>
               </Row>
               <div style={{ paddingBottom: 15 }}>
+                <Label for="exampleEmail">Phone Number</Label>
+                <Input
+                  type="text"
+                  name="phonenumber"
+                  placeholder="Phone Number"
+                  onChange={(e) => {
+                    this.setState({
+                      phonenumber: e.target.value,
+                    })
+                  }}
+                />
+              </div>
+              <div style={{ paddingBottom: 15 }}>
                 <Label for="exampleEmail">Address</Label>
                 <Input
                   type="textarea"
@@ -181,9 +217,11 @@ class SignUp extends Component {
               style={{ width: 450 }}
               onClick={() => {
                 if (
+                  !this.state.name ||
                   !this.state.email ||
                   !this.state.password ||
                   !this.state.retypepassword ||
+                  !this.state.phonenumber ||
                   !this.state.address
                 ) {
                   this.setState({
@@ -207,6 +245,12 @@ class SignUp extends Component {
                   this.setState({
                     openAlert: true,
                     alertMessage: 'Password do not match.',
+                  })
+                  //alert('Password do not match')
+                } else if (!this.validatePhoneNumber(this.state.phonenumber)) {
+                  this.setState({
+                    openAlert: true,
+                    alertMessage: 'Invalid phone number format.',
                   })
                   //alert('Password do not match')
                 } else {
