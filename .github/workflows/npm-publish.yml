@@ -21,5 +21,7 @@ jobs:
           branch: "master"
       - name: Run CI
         run: npm ci
+      - name: Install NPM
+        run : npm install
       - name : Run Build
         run: npm run build --if-present
