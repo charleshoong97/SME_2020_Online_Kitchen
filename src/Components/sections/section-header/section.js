@@ -24,7 +24,6 @@ class section1 extends Component {
     clickBtn(valv) {
         if (valv === 1) {
             back = <Brand show />;
-
             this.setState({ cls2: "circle" });
             this.setState({ cls3: "circle" });
             this.setState({ cls1: "full" });
@@ -59,7 +58,6 @@ class section1 extends Component {
                     </div>
                 </section>
                 <section className="sec-tiles">
-
                     <Tiles data={this.props.data.cards} />
                 </section>
                 <section className="specs">

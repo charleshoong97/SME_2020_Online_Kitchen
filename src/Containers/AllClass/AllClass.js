@@ -1,9 +1,10 @@
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import Home from '../Home/Home';
 import Menu from '../Menu/Menu';
 import Order from '../OrderOnline/OrderOnline';
 import Cart from '../Cart/Cart';
-import {Switch,Route} from 'react-router-dom';
+import Recipe from '../Recipe/Recipe';
+import {Switch, Route} from 'react-router-dom';
 import Offer from '../Offer/Offer';
 import axios from 'axios';
 import ForLoad from '../../Components/miscelleous/forLoad';
@@ -28,8 +29,30 @@ class allClass extends Component{
                 element.counter+=1;
               }
 
-          });
-          if(!check){
+class allClass extends Component {
+    state = {
+        item: [],
+        data: [],
+        loaded: false
+    };
+
+    componentDidMount() {
+        axios.get("https://twobrother0927.firebaseio.com/.json").then((data) => {
+            this.setState({data: data.data, loaded: true});
+        }).catch(err => console.log("Some Error")).then(console.log("Lets trye this "));
+    }
+
+    addItem = (obj) => {
+        let extra = [...this.state.item];
+        var check = false;
+        extra.forEach(element => {
+            if (element.head === obj.head) {
+                check = true;
+                element.counter += 1;
+            }
+
+        });
+        if (!check) {
             extra.push(obj);
           }
 
@@ -47,7 +70,7 @@ class allClass extends Component{
                 element.counter=element.counter-1;
                 check=true;
             }
-            pos+=1;
+            pos += 1;
         });
         if(check){
 
@@ -77,6 +100,7 @@ class allClass extends Component{
         ):<ForLoad/>;
         return(
            ddt
+
         );
     }
 }

@@ -1,0 +1,13 @@
+.addRecipeButtonStyle {
+    background-color: #fcad74 !important;
+}
+
+.addRecipeButtonStyle:hover  {
+    background-color: #db5d02 !important;
+    border-color: #db5d02 !important;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}

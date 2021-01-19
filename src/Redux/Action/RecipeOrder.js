@@ -13,3 +13,10 @@ export const addOrder = (data) => {
         data,
     }
 }
+
+export const updateOrder = (data) => {
+    return {
+        type: rc.UPDATE_ORDER,
+        data,
+    }
+}

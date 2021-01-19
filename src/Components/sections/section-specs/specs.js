@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container,Row,Col} from 'reactstrap';
-import Spec from './spec/spec';
+import Spec from './spec/special';
 import clock from '../../../Assests/icons/icon_specs/clock.png';
 import chef from '../../../Assests/icons/icon_specs/hat.png';
 import leaf from '../../../Assests/icons/icon_specs/leaf.png';

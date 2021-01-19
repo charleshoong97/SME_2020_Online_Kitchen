@@ -7,6 +7,9 @@ export const orders = (state = {}, action) => {
             return action.data
         case rc.ADD_ORDER:
             return [action.data, ...state]
+        case rc.UPDATE_ORDER:
+            let orderList = state.filter((order) => order._id !== action.data._id ? order : null)
+            return [...orderList, action.data]
         default:
             return state
     }
