@@ -18,8 +18,8 @@ const mapStateToProps = (state) => {
     }
     if (state.user != null) {
         object.userid = state.user._id
-        object.email = state.email
-        object.address = state.address
+        object.email = state.user.email
+        object.address = state.user.address
     }
     return object
 }
@@ -167,17 +167,22 @@ class OrderDetails extends Component {
         })
         let status = this.props.order.status
         let message = null
+        let clientTime = this.props.order.client_update_ddate
+        let adminTime = this.props.order.admin_updated_date
+        
         if (this.props.email == 'admin') {
             status = '2'
+            adminTime = new Date()
             if (this.state.message != null && this.state.message != '') {
                 message =
                     [
-                        'C',
+                        'R',
                         this.state.message
                     ]
             }
         } else if (this.props.email != 'admin') {
             status = '1'
+            clientTime = new Date()
             if (this.state.message != null && this.state.message != '') {
                 message =
                     [
@@ -194,7 +199,8 @@ class OrderDetails extends Component {
             price: this.state.price,
             status: status,
             message: message,
-            client_update_ddate: new Date(),
+            client_update_ddate: clientTime,
+            admin_updated_date: adminTime,
         }).then((response) => {
             console.log('response', response)
             this.props.updateOrder(response.data)
@@ -240,10 +246,10 @@ class OrderDetails extends Component {
 
     render() {
         let disabledTitle = this.props.email == 'admin' || (this.props.email != 'admin' && (this.props.order.status != '2' && this.props.order.status != '0'))
-        let disabledPrice = this.props.email != 'admin' || (this.props.email == 'admin' && (this.props.order.status != '1'))
+        let disabledPrice = this.props.email != 'admin' || (this.props.email == 'admin' && (this.props.order.status != '1' && this.props.order.status != '2' ))
         let disabledRecipe = this.props.email == 'admin' || (this.props.email != 'admin' && (this.props.order.status != '2' && this.props.order.status != '0'))
         let showMessage = this.props.order.status != '4' && this.props.order.status != '6' && this.props.order.status != '7'
-
+        
         return (
             <Modal isOpen={this.props.open} centered={true} backdrop="static"
                    keyboard={false}>

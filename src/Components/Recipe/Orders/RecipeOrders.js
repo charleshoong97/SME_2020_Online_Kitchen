@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import {Container, Button} from "reactstrap";
+import React, { Component } from 'react';
+import { Container, Button } from "reactstrap";
 import Item from "../../Order/Items/Item/item";
-import {statusColorCode, statusDisplayText} from "../../../Utils/CommonHelper";
+import { statusColorCode, statusDisplayText } from "../../../Utils/CommonHelper";
 import RecipeOrder from "../Order/RecipeOrder";
 import './RecipeOrders.css'
 import OrderDetails from "../OrderDetails/OrderDetails";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
     let object = {
@@ -41,12 +41,12 @@ class RecipeOrders extends Component {
     }
 
     closeModal = () => {
-        this.setState({open: false})
+        this.setState({ open: false })
     }
 
     openModal = () => {
         let id = Math.random().toString(16).slice(2)
-        this.setState({open: true, orderid: id})
+        this.setState({ open: true, orderid: id })
     }
 
     render() {
@@ -62,16 +62,19 @@ class RecipeOrders extends Component {
 
         return (
             <div className="Items">
-                <Button className='addRecipeButtonStyle align-self-end ItemsHead'
-                        onClick={this.openModal}>Order Now</Button>
+                {this.props.email != 'admin' ?
+                    <Button className='addRecipeButtonStyle align-self-end ItemsHead'
+                        onClick={this.openModal}>Order Now</Button> : null
+                }
+
                 <Container>
                     {this.props.orders.map(element =>
-                        <RecipeOrder order={element}/>
+                        <RecipeOrder order={element} />
                     )}
                 </Container>
                 {
                     this.state.open ?
-                        <OrderDetails open={this.state.open} close={this.closeModal} order={emptyDetails}/>
+                        <OrderDetails open={this.state.open} close={this.closeModal} order={emptyDetails} />
                         : null
                 }
 
