@@ -1,0 +1,26 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
+
+name: Backend Deployment
+
+on:
+  push:
+    paths: 
+      - '.server/**'
+    branches:
+      - subfolder
+        
+jobs:
+  DeployToHeroku:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+#       - name: Dependency Integrate
+#         run: npm ci
+      - uses: AkhileshNS/heroku-deploy@v3.8.8
+        with:
+          heroku_api_key: "2d3d94a3-151a-4bb0-92ad-e1099e4dbb61"
+          heroku_app_name: "testsmebackend2020"
+          heroku_email: "charleshoong97@gmail.com"
+          appdir: "client" 
+          branch: "subfolder"
