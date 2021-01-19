@@ -3,7 +3,7 @@ import './spec.css';
 
 
 
-const spec=(props)=>{
+const special=(props)=>{
     return(
         <div className="spec">
             <img src={props.src} alt=" Clock icon"/>
@@ -14,4 +14,4 @@ const spec=(props)=>{
     );
 }
 
-export default spec;
+export default special;
