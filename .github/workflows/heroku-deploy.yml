@@ -6,7 +6,7 @@ name: Deployment
 on:
   push:
     branches:
-      - master
+      - backend
         
 jobs:
   DeployToHeroku:
@@ -18,6 +18,6 @@ jobs:
       - uses: AkhileshNS/heroku-deploy@v3.8.8
         with:
           heroku_api_key: "2d3d94a3-151a-4bb0-92ad-e1099e4dbb61"
-          heroku_app_name: "testsme2020"
+          heroku_app_name: "testsmebackend2020"
           heroku_email: "charleshoong97@gmail.com"
-          branch: "master"
+          branch: "backend"
