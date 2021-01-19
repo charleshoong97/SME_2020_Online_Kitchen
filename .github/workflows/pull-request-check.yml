@@ -4,8 +4,8 @@
 name: Pull Request Check
 
 on:
-  pull-request:
-    types: [opened]
+  pull_request:
+    types: [opened, synchronize]
 
 jobs:
   PullRequestCheck:
