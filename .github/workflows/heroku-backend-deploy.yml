@@ -6,7 +6,7 @@ name: Backend Deployment
 on:
   push:
     paths: 
-      - '.server/**'
+      - 'server/**'
     branches:
       - subfolder
         
@@ -22,5 +22,5 @@ jobs:
           heroku_api_key: "2d3d94a3-151a-4bb0-92ad-e1099e4dbb61"
           heroku_app_name: "testsmebackend2020"
           heroku_email: "charleshoong97@gmail.com"
-          appdir: "client" 
+          appdir: "server" 
           branch: "subfolder"
