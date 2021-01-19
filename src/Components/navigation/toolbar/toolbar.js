@@ -103,129 +103,118 @@ class toolbar extends Component {
                     </div>
 
                     <div className="short" >
-
+                    
                         <img src={icon} onClick={() => onTouch()} alt="Icon" />
                         <div className={this.state.short.join(" ")}>
-
-                            <div className="items">
-
-                                <Container>
-                                    <Link to="/home">
-                                        <div className="eachOne">
-                                            <Row>
-                                                <Col>
-
-                                                    <div className="smallImgBox">
-                                                        <img src={home} alt="An Icon" />
-                                                    </div>
-                                                </Col>
-                                                <Col>
-                                                    <div className="linkContainer">
-                                                        <Link to="/home">Home</Link>
-                                                    </div>
-                                                </Col>
-                                            </Row>
+                        
+                        <div className="items">
+                        
+                            <Container>
+                                <Link to="/home">
+                            <div className="eachOne">
+                                <Row>
+                                    <Col>
+                                    
+                                        <div className="smallImgBox">
+                                            <img src={home} alt="An Icon" />
                                         </div>
-                                    </Link>
-                                    <Link to="/menu">
-                                        <div className="eachOne">
-                                            <Row>
-
-                                                <Col>
-                                                    <div className="smallImgBox">
-                                                        <img src={menu} alt="An Icon" />
-                                                    </div>
-                                                </Col>
-                                                <Col>
-                                                    <div className="linkContainer">
-                                                        <Link to="/menu">Menu</Link>
-                                                    </div>
-                                                </Col>
-                                            </Row>
+                                    </Col>
+                                    <Col>
+                                    <div className="linkContainer">
+                                        <Link to="/home">Home</Link>
                                         </div>
-                                    </Link>
-                                    <Link to="/order">
-                                        <div className="eachOne">
-                                            <Row>
-
-                                                <Col>
-                                                    <div className="smallImgBox">
-                                                        <img src={offer} alt="An Icon" />
-                                                    </div>
-                                                </Col>
-                                                <Col>
-                                                    <div className="linkContainer">
-                                                        <Link to="/order">Order</Link>
-                                                    </div>
-                                                </Col>
-                                            </Row>
+                                    </Col>
+                                </Row>
+                                </div>
+                                </Link>
+                                <Link to="/menu">
+                                <div className="eachOne">
+                                <Row>
+                                    
+                                    <Col>
+                                        <div className="smallImgBox">
+                                            <img src={menu} alt="An Icon" />
                                         </div>
-                                    </Link>
-                                    <Link to="/offers">
-                                        <div className="eachOne">
-                                            <Row>
-
-                                                <Col>
-                                                    <div className="smallImgBox">
-                                                        <img src={contact} alt="An Icon" />
-                                                    </div>
-                                                </Col>
-                                                <Col>
-                                                    <div className="linkContainer">
-                                                        <Link to="/offers">Offers</Link>
-                                                    </div>
-                                                </Col>
-                                            </Row>
+                                    </Col>
+                                    <Col>
+                                    <div className="linkContainer">
+                                        <Link to="/menu">Menu</Link>
                                         </div>
-                                    </Link>
-                                    <Link to="/cart">
-                                        <div className="eachOne">
-                                            <Row>
-
-                                                <Col>
-                                                    <div className="smallImgBox">
-                                                        <img src={cart} alt="An Icon" />
-                                                    </div>
-                                                </Col>
-                                                <Col>
-                                                    <div className="linkContainer">
-                                                        <Link to="/cart">Cart</Link>
-                                                    </div>
-                                                </Col>
-                                            </Row>
+                                    </Col>
+                                </Row>
+                                </div>
+                                </Link>
+                                <Link to="/order">
+                                <div className="eachOne">
+                                <Row>
+                                    
+                                    <Col>
+                                        <div className="smallImgBox">
+                                            <img src={offer} alt="An Icon" />
                                         </div>
-                                    </Link>
-                                    <Link to="/footer">
-                                        <div className="eachOne">
-                                            <Row>
-
-                                                <Col>
-                                                    <div className="smallImgBox">
-                                                        <img src={contact} alt="An Icon" />
-                                                    </div>
-                                                </Col>
-                                                <Col>
-                                                    <div className="linkContainer">
-                                                        <Link to="#footer">Contact</Link>
-                                                    </div>
-                                                </Col>
-                                            </Row>
+                                    </Col>
+                                    <Col>
+                                    <div className="linkContainer">
+                                        <Link to="/order">Order</Link>
                                         </div>
-                                    </Link>
-                                    <Link to="/admin">
-                                        <div className="eachOne">
-                                            <Row>
-                                                <Col>
-                                                    <div className="linkContainer">
-                                                        <Link to="/admin">Admin</Link>
-                                                    </div>
-                                                </Col>
-                                            </Row>
+                                    </Col>
+                                </Row>
+                                </div>
+                                </Link>
+                                <Link to="/offers">
+                                <div className="eachOne">
+                                <Row>
+                                    
+                                    <Col>
+                                        <div className="smallImgBox">
+                                            <img src={contact} alt="An Icon" />
                                         </div>
-                                    </Link>
-                                </Container>
-
-                            </div>
+                                    </Col>
+                                    <Col>
+                                    <div className="linkContainer">
+                                        <Link to="/offers">Offers</Link>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                </div>
+                                </Link>
+                                <Link to="/cart">
+                                <div className="eachOne">
+                                <Row>
+                                    
+                                    <Col>
+                                        <div className="smallImgBox">
+                                            <img src={cart} alt="An Icon" />
+                                        </div>
+                                    </Col>
+                                    <Col>
+                                    <div className="linkContainer">
+                                        <Link to="/cart">Cart</Link>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                </div>
+                                </Link>
+                                <Link to="/footer">
+                                <div className="eachOne">
+                                <Row>
+                                    
+                                    <Col>
+                                        <div className="smallImgBox">
+                                            <img src={contact} alt="An Icon" />
+                                        </div>
+                                    </Col>
+                                    <Col>
+                                    <div className="linkContainer">
+                                        <Link to="#footer">Contact</Link>
+                                        </div>
+                                    </Col>
+                                </Row>
+                                </div>
+                                </Link>
+                            </Container>
+                            
+                        </div>
                         </div>
                     </div>
                 </nav>
