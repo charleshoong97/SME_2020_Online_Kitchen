@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Home from '../Home/Home';
 import Menu from '../Menu/Menu';
 import Order from '../OrderOnline/OrderOnline';
 import Cart from '../Cart/Cart';
-import Admin from '../Admin/Admin';
 import Recipe from '../Recipe/Recipe';
-import { Switch, Route } from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import Offer from '../Offer/Offer';
 import axios from 'axios';
 import ForLoad from '../../Components/miscelleous/forLoad';
@@ -39,7 +38,7 @@ class allClass extends Component {
 
     componentDidMount() {
         axios.get("https://twobrother0927.firebaseio.com/.json").then((data) => {
-            this.setState({ data: data.data, loaded: true });
+            this.setState({data: data.data, loaded: true});
         }).catch(err => console.log("Some Error")).then(console.log("Lets trye this "));
     }
 
@@ -57,7 +56,7 @@ class allClass extends Component {
             extra.push(obj);
           }
 
-        this.setState({ item: extra });
+          this.setState({item:extra});
 
           alert(`${obj.head} is added to your cart`);
       }
@@ -80,7 +79,7 @@ class allClass extends Component {
 
             }
         }
-        this.setState({ item: copy });
+        this.setState({item:copy});
 
       }
 
@@ -88,30 +87,20 @@ class allClass extends Component {
 
         const ddt=this.state.loaded?(
             <div>
-                <Switch>
-                    <Route path="/recipe"
-                        component={() => <Recipe />} />
-                    <Route path="/offers"
-                        component={() => <Offer count={this.state.item.length} data={this.state.data.offers.offer}
-                            board={this.state.data.offers.board} />} />
-                    <Route path="/cart"
-                        component={() => <Cart adding={() => this.addItem} remove={() => this.removeItem}
-                            data={this.state.item} />} />
-                    <Route path="/menu"
-                        component={() => <Menu inbox={this.state.item.length} data={this.state.data.menu}
-                            loaded={this.state.loaded} adding={() => this.addItem} />} />
-                    <Route path="/order"
-                        component={() => <Order count={this.state.item.length} data={this.state.item} />} />
-                    <Route path="/admin"
-                        component={() => <Admin count={this.state.item.length} data={this.state.data.offers.admin} />} />
-                    <Route path="/"
-                        component={() => <Home count={this.state.item.length} data={this.state.data.offers.home} />} />
+            <Switch>
+                <Route path="/offers" component={()=><Offer count={this.state.item.length} data={this.state.data.offers.offer} board={this.state.data.offers.board}/>}/>
+   <Route path="/cart" component={()=><Cart adding={()=>this.addItem} remove={()=>this.removeItem} data={this.state.item}/> }/>
+   <Route path="/menu" component={()=><Menu inbox={this.state.item.length} data={this.state.data.menu} loaded={this.state.loaded} adding={()=>this.addItem}/>}/>
+   <Route path="/order" component={()=><Order count={this.state.item.length} data={this.state.item}/>}/>
+   <Route path="/setting" component={()=><EditProfile/>}/>
+   <Route path="/" component={()=><Home count={this.state.item.length} data={this.state.data.offers.home}/>}/>
 
-                </Switch>
-            </div>
-        ) : <ForLoad />;
-        return (
-            ddt
+   </Switch>
+       </div>
+        ):<ForLoad/>;
+        return(
+           ddt
+
         );
     }
 }
