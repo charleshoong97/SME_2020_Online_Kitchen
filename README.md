@@ -1,18 +1,11 @@
-# RestaurantReactApp
-<hr/>
-<h2> Project Introduction </h2>
-<p>This github project is mainly for University of Malaya, Computer Science and Information Technology, course Software Evolution and Maintenance (WIF3008) education purpose. In this project, evolution and maintenance will be undergo to fullfil the assignment requirement.</p>
+# SME_2020_Online_Kitchen_BackEnd
 
-<h3>Evolution : </h3>
-<p>Introduction new features to allow restaurant owner to receive recipe from customer. Review on the recipe will take up to 3 days for the restaurant to verify the ingredient and finalize the cost. Price offer by the restaurant can be accept or reject by the customer.</p>
+step 1 : npm install to install require package
 
-<h3>Maintenance : </h3>
-<p>Add user module to allow login and register function.</p>
+step 2 : add a dot env file to root directory
 
-<h3>Technology : </h3>
-<ul>
-  <li>MongoDB</li>
-  <li>React JS</li>
-</ul>
+step 3 : nodemon index.js to start the server
 
-<h3></h3>
+step 4 : go to localhost port 3000 to use the server
+
+for endpoint documentation, you could refer to my postman collection (import this to ur postman) --> https://www.getpostman.com/collections/fc615b4b378301f448ac
