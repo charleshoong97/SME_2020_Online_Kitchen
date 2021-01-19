@@ -1,0 +1,12 @@
+.modal {
+  width: 100vw;
+  height: 100vmin;
+}
+
+.show {
+  opacity: 9 !important;
+}
+
+.backdrop {
+  background-color: white;
+}
