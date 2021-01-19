@@ -15,7 +15,6 @@ class App extends Component {
                 <PersistGate persistor={persistor}>
                     <div className="App">
                         <AllClass/>
-
                     </div>
                 </PersistGate>
             </Provider>
