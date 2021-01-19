@@ -72,6 +72,10 @@ class NavBar extends Component {
           </div>
         ) : (
           <div className="AuthButton_Conatiner">
+            <Button outline className="Auth_Button"
+                    href="/#/setting">
+              Edit Account
+            </Button>
             <Button outline className="Auth_Button" onClick={this.signout}>
               Sign Out
             </Button>

@@ -6,22 +6,48 @@ import {
     Card,
     CardBody,
     CardTitle,
-    CardText
+    CardText, Alert, Form
 } from 'reactstrap'
 import './Authentication.css'
 import axios from "axios";
+import { connect } from 'react-redux'
+import {login} from "../Redux/Action/User";
+
+const mapStateToProps = (state) => {
+return state
+
+}
+
+const mapDispatchToProps = {
+    login,
+}
 
 class EditProfile extends Component {
     constructor(props) {
         super(props)
 
         this.state={
-            email: '',
-            address:'',
+            email: this.props.user.email,
+            address:this.props.user.address,
             oldPassword: '',
             newPassword: '',
             confirmNewPassword: '',
+            openDetailsAlert: false,
+            detailsAlertMessage: '',
+            openPasswordAlert: false,
+            passwordAlertMessage: '',
         }
+    }
+
+    toggleDetailsAlert = () => {
+        this.setState({
+            openDetailsAlert: !this.state.openDetailsAlert,
+        })
+    }
+    togglePasswordAlert = () => {
+        this.setState({
+            openPasswordAlert: !this.state.openPasswordAlert,
+        })
     }
 
     validateEmail() {
@@ -48,7 +74,7 @@ class EditProfile extends Component {
     isOldPasswordMatch(){
         //load old password from redux
         let isSame=false;
-        if(this.state.oldPassword=='testtest'){
+        if(this.state.oldPassword==this.props.user.password){
             isSame=true
         }
         return isSame
@@ -57,7 +83,7 @@ class EditProfile extends Component {
     profileSubmit(){
         //load from redux
         const body={
-            user_id:"6001c30aeda8030015cf71e0",
+            user_id:this.props.user._id,
             email: this.state.email,
             address: this.state.address,
         }
@@ -68,6 +94,7 @@ class EditProfile extends Component {
 
                 //suceesss
                 //add redux here with userData  (user object)
+                this.props.login(userData)
                 alert('update success')
             }else{
                 alert('')
@@ -80,7 +107,7 @@ class EditProfile extends Component {
     passwordSubmit(){
         //load from redux
         const body={
-            user_id:"6001c30aeda8030015cf71e0",
+            user_id:this.props.user._id,
             password: this.state.newPassword,
         }
         axios.put('https://sme-backend.herokuapp.com/user/update',body).then(response => {
@@ -90,6 +117,7 @@ class EditProfile extends Component {
 
                 //suceesss
                 //add redux here with userData  (user object)
+                this.props.login(userData)
                 alert('update password success')
             }else{
                 alert('')
@@ -108,7 +136,9 @@ class EditProfile extends Component {
                     <Card body>
                         <CardTitle tag="h1">Personal details</CardTitle>
                         <Label for="exampleEmail">Email</Label>
-                        <Input type="email" name="email" placeholder="abc@gmail.com"
+                        <Input type="email" name="email"
+                               placeholder="Email"
+                               value={this.state.email}
                                style={{width:500, alignSelf:'center'}}
                                onChange={(e)=>{this.setState({
                                    email: e.target.value
@@ -116,19 +146,38 @@ class EditProfile extends Component {
                         />
                         <Label for="address">Delivery Address</Label>
                         <Input type="text" name="Delivery Address" placeholder="Delivery Address" style={{width:500, alignSelf:'center'}}
+                               value={this.state.address}
                                onChange={(e)=>{this.setState({
                                    address: e.target.value
                                })}}
                         />
+                        <Alert
+                            color="danger"
+                            isOpen={this.state.openDetailsAlert}
+                            toggle={()=>{this.toggleDetailsAlert()}}
+                            style={{marginTop:20, width:500, alignSelf:'center'}}
+                        >
+                            {this.state.detailsAlertMessage}
+                        </Alert>
 
-                        <Button color="primary" style={{marginTop:50, width:600, alignSelf:'center'}}
+                        <Button color="primary" style={{marginTop:20, width:600, alignSelf:'center'}}
                         onClick={()=>{
                             if(!this.state.email||!this.state.email){
-                                alert('Please fill in all field')
+                                this.setState({
+                                    openDetailsAlert: true,
+                                    detailsAlertMessage: 'Please fill in all field',
+                                })
                             }else if (!this.validateEmail()){
-                                alert('Invalid Email Format')
+                                this.setState({
+                                    openDetailsAlert: true,
+                                    detailsAlertMessage: 'Invalid Email Format',
+                                })
                             }else {
                                 this.profileSubmit()
+                                this.setState({
+                                    openDetailsAlert: false,
+                                    detailsAlertMessage: '',
+                                })
                             }
                         }}
                         >
@@ -157,18 +206,42 @@ class EditProfile extends Component {
                                    confirmNewPassword: e.target.value
                                })}}/>
 
-                        <Button color="primary" style={{marginTop:50, width:600, alignSelf:'center'}}
+                        <Alert
+                            color="danger"
+                            isOpen={this.state.openPasswordAlert}
+                            toggle={()=>{this.togglePasswordAlert()}}
+                            style={{marginTop:20, width:500, alignSelf:'center'}}
+                        >
+                            {this.state.passwordAlertMessage}
+                        </Alert>
+                        <Button color="primary" style={{marginTop:20, width:600, alignSelf:'center'}}
                         onClick={()=>{
                             if(!this.state.oldPassword||!this.state.newPassword||!this.state.confirmNewPassword){
-                                alert('Please fill in all the field')
+                                this.setState({
+                                    openPasswordAlert: true,
+                                    passwordAlertMessage: 'Please fill in all the field',
+                                })
                             }else if(!this.isPasswordValid()){
-                                alert('Password must be greater than 6 character')
+                                this.setState({
+                                    openPasswordAlert: true,
+                                    passwordAlertMessage: 'Password must be greater than 6 character',
+                                })
                             }else if (!this.isPasswordMatch()){
-                                alert('Confirm password do not match with new password')
+                                this.setState({
+                                    openPasswordAlert: true,
+                                    passwordAlertMessage: 'Confirm password do not match with new password',
+                                })
                             }else if (!this.isOldPasswordMatch()){
-                                alert('Incorrect old password')
+                                this.setState({
+                                    openPasswordAlert: true,
+                                    passwordAlertMessage: 'Incorrect old password',
+                                })
                             }else {
                                 this.passwordSubmit()
+                                this.setState({
+                                    openPasswordAlert: false,
+                                    passwordAlertMessage: '',
+                                })
                             }
                         }}
                         >
@@ -180,5 +253,4 @@ class EditProfile extends Component {
         )
     }
 }
-
-export default EditProfile
+export default connect(mapStateToProps,mapDispatchToProps)(EditProfile)
